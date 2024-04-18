@@ -2,7 +2,7 @@
 """ Console Module """
 import cmd
 import sys
-from datetime import datetime
+from datetime import datetime  # noqa F184
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
@@ -133,7 +133,6 @@ class HBNBCommand(cmd.Cmd):
                         continue
                 kwargs[key] = value
 
-
             if kwargs == {}:
                 obj = eval(my_list[0])()
             else:
@@ -262,7 +261,7 @@ class HBNBCommand(cmd.Cmd):
                 raise NameError()
             if len(my_list) < 2:
                 raise IndexError()
-            objects = storage.all()                                                                 
+            objects = storage.all()
             key = my_list[0] + '.' + my_list[1]
             if key not in objects:
                 raise KeyError()
