@@ -29,5 +29,7 @@ def do_clean(number=0):
     with cd("/data/web_static/releases"):
         archives = run("ls -tr").split()
         archives = [a for a in archives if "web_static_" in a]
-        [archives.pop() for i in range(number)]
-        [run("rm -rf ./{}".format(a)) for a in archives]
+        archives_to_keep = archives[-number:]
+        archives_to_delete = archives[:-number]
+        for archive in archives_to_delete:
+            run("rm -rf {}".format(archive))
