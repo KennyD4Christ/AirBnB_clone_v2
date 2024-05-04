@@ -41,8 +41,9 @@ def do_deploy(archive_path):
         run('rm -rf {}{}/web_static'.format(path, no_ext))
         run('rm -rf /data/web_static/current')
         run('ln -s {}{}/ /data/web_static/current'.format(path, no_ext))
-        run('mv /data/web_static/current/my_index.html '
-            '/data/web_static/current/web_static/')
+        if exists("/data/web_static/current/my_index.html"):
+            run('mv /data/web_static/current/my_index.html '
+                '/data/web_static/current/web_static/')
         return True
     except:
         return False
@@ -50,6 +51,7 @@ def do_deploy(archive_path):
 
 def deploy():
     """creates and distributes an archive to the web servers"""
+    env.hosts = ['localhost']
     archive_path = do_pack()
     if archive_path is None:
         return False
