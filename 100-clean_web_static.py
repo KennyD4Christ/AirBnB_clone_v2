@@ -3,7 +3,7 @@
 Deletes out-of-date archives
 fab -f 100-clean_web_static.py do_clean:number=2
     -i ssh-key -u ubuntu > /dev/null 2>&1
-"""
+    """
 
 import os
 from fabric.api import *
@@ -19,15 +19,25 @@ def do_clean(number=0):
     number is 2, keeps the most and second-most recent archives,
     etc.
     """
-    number = 1 if int(number) == 0 else int(number)
+    number = int(number)
 
-    archives = sorted(os.listdir("versions"))
-    [archives.pop() for i in range(number)]
-    with lcd("versions"):
-        [local("rm ./{}".format(a)) for a in archives]
+    # Get the list of archives on each server
+    with settings(warn_only=True):
+        archives_list_1 = run("ls /data/web_static/releases").split()
+        archives_list_2 = run("ls /data/web_static/releases").split()
 
+    # Find the minimum number of archives on any server
+    min_archives = min(len(archives_list_1), len(archives_list_2))
+
+    # Determine the number of archives to delete
+    num_to_delete = min_archives - number
+    if num_to_delete <= 0:
+        print("Nothing to clean!")
+        return
+
+    # Delete the out-of-date archives remotely on both servers
     with cd("/data/web_static/releases"):
-        archives = run("ls -tr").split()
-        archives = [a for a in archives if "web_static_" in a]
-        [archives.pop() for i in range(number)]
-        [run("rm -rf ./{}".format(a)) for a in archives]
+        run("ls -t | grep 'web_static_' | tail -n +{} | xargs rm -rf"
+            .format(number + 1))
+
+    print("Cleanup completed successfully!")
