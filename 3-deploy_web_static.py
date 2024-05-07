@@ -41,8 +41,9 @@ def do_deploy(archive_path):
         run('rm -rf {}{}/web_static'.format(path, no_ext))
         run('rm -rf /data/web_static/current')
         run('ln -s {}{}/ /data/web_static/current'.format(path, no_ext))
-        run('echo "Hello, this is my_index.html" > {}{}/'
-            'my_index.html'.format(path, no_ext))
+        if exists("/data/web_static/current/my_index.html"):
+            run('mv /data/web_static/current/my_index.html '
+                '/data/web_static/current/web_static/')
         
         return True
     except:
