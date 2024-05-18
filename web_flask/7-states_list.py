@@ -2,11 +2,34 @@
 """
 Script to start a Flask web application
 """
+import os  # noqa 184
 from flask import Flask, render_template
 from models import storage
 from models.state import State
+from sqlalchemy import create_engine
 
 app = Flask(__name__)
+
+
+def import_sql_dump(dump_path):
+    """
+    Import SQL dump to have some data
+    """
+    # Set your database URL (replace with actual credentials and database name)
+    database_url = ('mysql+mysqldb://hbnb_dev:hbnb_dev_pwd@'
+                    'localhost/hbnb_dev_db')
+
+    # Create an engine to the database
+    engine = create_engine(database_url)
+
+    with engine.connect() as connection:
+        with open(dump_path, 'r') as file:
+            sql_commands = file.read()
+            connection.execute(sql_commands)
+
+
+# Import the SQL dump data
+import_sql_dump('7-dump.sql')
 
 
 @app.route('/states_list', strict_slashes=False)
