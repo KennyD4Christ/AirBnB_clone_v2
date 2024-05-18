@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HBNB - Filters</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles/3-header.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles/3-footer.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles/4-common.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles/6-filters.css') }}">
+</head>
+<body>
+	<header>
+		<div class="logo">
+			<img src="{{ url_for('static', filename='images/logo.png') }}" alt="HBNB logo">
+		</div>
+	</header>
+	<div class="container">
+		<div class="filters">
+			<h3>States</h3>
+			<div class="popover">
+				<h4>&nbsp;</h4>
+				<ul>
+					{% for state in states %}
+						<li>
+							{{ state.name }}
+							<ul>
+								{% for city in state.cities %}
+									<li>{{ city.name }}</li>
+								{% endfor %}
+							</ul>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<h3>Amenities</h3>
+			<div class="popover">
+				<h4>&nbsp;</h4>
+				<ul>
+					{% for amenity in amenities %}
+						<li>{{ amenity.name }}</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<p>&copy; 2024 HBNB</p>
+	</footer>
+</body>
+</html>

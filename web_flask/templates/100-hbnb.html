@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HBNB</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles/3-header.css') }}" type="text/css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles/3-footer.css') }}" type="text/css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles/4-common.css') }}" type="text/css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles/6-filters.css') }}" type="text/css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles/8-places.css') }}" type="text/css">
+</head>
+<body>
+	<header class="clearfix">
+		<nav class="filter">
+			<h3 class="title">States</h3>
+			<ul class="container">
+				{% for state in states %}
+				<li>
+					<input type="checkbox" class="states" id="{{ state.id }}" name="states" value="{{ state.name }}">
+					<label for="{{ state.id }}">{{ state.name }}</label>
+				</li>
+				{% endfor %}
+			</ul>
+		</nav>
+		<nav class="filter">
+			<h3 class="title">Cities</h3>
+			<ul class="container">
+				{% for city in cities %}
+				<li>
+					<input type="checkbox" class="cities" id="{{ city.id }}" name="cities" value="{{ city.name }}">
+					<label for="{{ city.id }}">{{ city.name }}</label>
+				</li>
+				{% endfor %}
+			</ul>
+		</nav>
+		<nav class="filter">
+			<h3 class="title">Amenities</h3>
+			<ul class="container">
+				{% for amenity in amenities %}
+				<li>
+					<input type="checkbox" class="amenities" id="{{ amenity.id }}" name="amenities" value="{{ amenity.name }}">
+					<label for="{{ amenity.id }}">{{ amenity.name }}</label>
+				</li>
+				{% endfor %}
+			</ul>
+		</nav>
+	</header>
+	<section class="places">
+		{% for place in places %}
+		<article>
+			<div class="title_box">
+				<h2>{{ place.name }}</h2>
+				<div class="price_by_night">${{ place.price_by_night }}</div>
+			</div>
+			<div class="information">
+				<div class="max_guest">{{ place.max_guest }} Guests</div>
+				<div class="number_rooms">{{ place.number_rooms }} Bedrooms</div>
+				<div class="number_bathrooms">{{ place.number_bathrooms }} Bathroom</div>
+			</div>
+			<div class="description">{{ place.description }}</div>
+		</article>
+		{% endfor %}
+	</section>
+	<footer>
+		<p class="footer">Holberton School</p>
+	</footer>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{% if state %}State: {{ state.name }}{% else %}States{% endif %}</title>
+</head>
+<body>
+	{% if state %}
+		<h1>State: {{ state.name }}</h1>
+		<h3>Cities:</h3>
+		<ul>
+			{% for city in state.cities %}
+				<li>{{ city.id }}: <b>{{ city.name }}</b></li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<h1>States</h1>
+		<ul>
+			{% for state in states %}
+				<li>{{ state.id }}: <b>{{ state.name }}</b></li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+</body>
+</html>

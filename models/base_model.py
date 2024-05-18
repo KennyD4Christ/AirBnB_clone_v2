@@ -23,12 +23,16 @@ class BaseModel:
             *args (any): Unused.
             **kwargs (dict): Key/value pairs of attributes.
         """
-        self.id = str(uuid4())
-        self.created_at = self.updated_at = datetime.utcnow()
+        if 'id' not in kwargs:
+            self.id = str(uuid4())
+        if 'created_at' not in kwargs:
+            self.created_at = datetime.utcnow()
+        if 'created_at' in kwargs and kwargs['created_at'] is not None:
+            kwargs['created_at'] = datetime.strptime(kwargs['created_at'], "%Y-%m-%dT%H:%M:%S.%f")
+        if 'updated_at' in kwargs and kwargs['updated_at'] is not None:
+            kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'], "%Y-%m-%dT%H:%M:%S.%f")
         if kwargs:
             for key, value in kwargs.items():
-                if key == "created_at" or key == "updated_at":
-                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                 if key != "__class__":
                     setattr(self, key, value)
 
