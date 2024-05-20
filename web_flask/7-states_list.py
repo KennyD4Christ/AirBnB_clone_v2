@@ -1,4 +1,29 @@
 #!/usr/bin/python3
+"""
+This Flask web application provides a list of states retrieved from a database
+using an ORM (Object-Relational Mapper). Users can access the sorted list at
+the `/states_list` endpoint.
+
+The application renders an HTML template (`7-states_list.html`) to display
+the state names.
+
+**Functionalities:**
+
+* Retrieves all `State` objects from the database using the `storage` object.
+* Sorts the retrieved states alphabetically by their `name` attribute.
+* Renders the `7-states_list.html` template passing the sorted list of states.
+
+**Database and ORM:**
+
+This application interacts with a database likely through an
+ORM (Object-Relational Mapper) indicated by the usage of `storage` and `State`
+class from the `models` module.
+
+**Error Handling:**
+
+The `teardown_appcontext` function ensures the database connection is properly
+closed after each request, preventing potential issues.
+"""
 
 from flask import Flask, render_template
 from models import storage
