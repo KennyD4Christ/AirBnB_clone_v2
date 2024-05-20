@@ -1,22 +1,5 @@
 #!/usr/bin/python3
-"""
-This module initializes a Flask web application that serves a list of states.
-
-The web application listens on 0.0.0.0, port 5000, and fetches data from a
-storage engine (DBStorage) to display a list of states sorted by name.
-After each request, the SQLAlchemy session is removed.
-
-Routes:
-- /states_list: Displays an HTML page with a list of all State objects
-present in DBStorage, sorted by name.
-
-Requirements:
-- Ensure a running and valid setup_mysql_dev.sql file in the
-AirBnB_clone_v2 repository.
-- All tables should be created when you run the setup_mysql_dev.sql script.
-- Ensure the HBNB_MYSQL_USER, HBNB_MYSQL_PWD, HBNB_MYSQL_HOST, HBNB_MYSQL_DB,
-and HBNB_TYPE_STORAGE environment variables are set correctly.
-"""
+"""Flask app starter script"""
 
 from flask import Flask, render_template
 from models import storage
