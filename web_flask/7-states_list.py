@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 """
-This script initializes a Flask web application that serves a list of states
+This module initializes a Flask web application that serves a list of states
 """
 from flask import Flask, render_template
 from models import storage
