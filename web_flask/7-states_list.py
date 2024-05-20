@@ -3,13 +3,13 @@
 
 from flask import Flask, render_template
 from models import storage
-from models import State
+from models.state import State
 
 app = Flask(__name__)
 
 
 @app.teardown_appcontext
-def closedb(argument):
+def teardown_appcontext(exception):
     """close the db connection"""
 
     storage.close()
@@ -19,11 +19,10 @@ def closedb(argument):
 def states_list():
     """/states_list route"""
 
-    states = list(storage.all(State).values())
-    states.sort(key=lambda state: state.name)
-    return render_template('7-states_list.html', states=states)
+    states = storage.all(State).values()
+    sorted_states = sorted(states, key=lambda state: state.name)
+    return render_template('7-states_list.html', states=sorted_states)
 
 
 if __name__ == '__main__':
-    storage.reload()
-    app.run("0.0.0.0", 5000)
+    app.run(host='0.0.0.0', port=5000)
