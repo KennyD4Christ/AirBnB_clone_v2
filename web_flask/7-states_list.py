@@ -1,13 +1,7 @@
 #!/usr/bin/python3
-"""
-This script initializes and runs a Flask web application that serves a
-list of states retrieved from storage. The application has one route,
-'/states_list', which renders an HTML template displaying the states.
 
-It includes the following functionalities:
-- Initialize the Flask application.
-- Define a teardown function to close the storage session.
-- Define a route to display the list of states sorted by name.
+"""
+This script initializes a Flask web application that serves a list of states
 """
 from flask import Flask, render_template
 from models import storage
