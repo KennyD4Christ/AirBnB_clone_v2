@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-Flask app starter script
-"""
+"""Flask app starter script"""
 
 from flask import Flask, render_template
 from models import storage
@@ -12,31 +10,14 @@ app = Flask(__name__)
 
 @app.teardown_appcontext
 def teardown_appcontext(exception):
-    """
-    Teardown the app context and close the storage session.
-
-    This function is automatically called after each request to ensure that
-    the current SQLAlchemy session is properly removed, preventing potential
-    issues with database connections.
-
-    :param exception: An exception instance if
-    one was raised during the request
-    """
+    """close the db connection"""
 
     storage.close()
 
 
 @app.route('/states_list', strict_slashes=False)
 def states_list():
-    """
-    Display a list of states sorted by name.
-
-    This route retrieves all State objects from storage, sorts them by their
-    name attribute, and renders the '7-states_list.html' template to display
-    the sorted list of states.
-
-    :return: Rendered HTML template displaying the sorted list of states.
-    """
+    """/states_list route"""
 
     states = storage.all(State).values()
     sorted_states = sorted(states, key=lambda state: state.name)
