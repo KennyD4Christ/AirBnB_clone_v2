@@ -1,28 +1,21 @@
 #!/usr/bin/python3
 """
-This Flask web application provides a list of states retrieved from a database
-using an ORM (Object-Relational Mapper). Users can access the sorted list at
-the `/states_list` endpoint.
+This module initializes a Flask web application that serves a list of states.
 
-The application renders an HTML template (`7-states_list.html`) to display
-the state names.
+The web application listens on 0.0.0.0, port 5000, and fetches data from a
+storage engine (DBStorage) to display a list of states sorted by name.
+After each request, the SQLAlchemy session is removed.
 
-**Functionalities:**
+Routes:
+- /states_list: Displays an HTML page with a list of all State objects
+present in DBStorage, sorted by name.
 
-* Retrieves all `State` objects from the database using the `storage` object.
-* Sorts the retrieved states alphabetically by their `name` attribute.
-* Renders the `7-states_list.html` template passing the sorted list of states.
-
-**Database and ORM:**
-
-This application interacts with a database likely through an
-ORM (Object-Relational Mapper) indicated by the usage of `storage` and `State`
-class from the `models` module.
-
-**Error Handling:**
-
-The `teardown_appcontext` function ensures the database connection is properly
-closed after each request, preventing potential issues.
+Requirements:
+- Ensure a running and valid setup_mysql_dev.sql file in the
+AirBnB_clone_v2 repository.
+- All tables should be created when you run the setup_mysql_dev.sql script.
+- Ensure the HBNB_MYSQL_USER, HBNB_MYSQL_PWD, HBNB_MYSQL_HOST, HBNB_MYSQL_DB,
+and HBNB_TYPE_STORAGE environment variables are set correctly.
 """
 
 from flask import Flask, render_template
